@@ -38,3 +38,11 @@ go build hello.go
 ./hello
 # 也可直接运行（无需手动编译，go会自动临时编译并执行）
 go run hello.go
+
+MacOs环境下
+1.下载go-1.25 darwin/arm-64bit的pkg
+2.安装pkg 自动部署和设置环境变量
+3.配置代理（阿里云代理，同样稳定）
+echo 'export GOPROXY=https://mirrors.aliyun.com/goproxy/,direct' >> ~/.zshrc
+source ~/.zshrc
+4.在vscode里面安装go插件和go的工具链，完成后可进行调试、补齐等
