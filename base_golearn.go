@@ -94,7 +94,48 @@ func TestSliceGrow() {
 	fmt.Printf("按需扩容:len=%d, cap=%d\n", len(s3), cap(s3)) // len=25, cap=25
 }
 
+/************************
+* @ Author: MingrHu
+* @ Date :  2026/01/09
+* @ About: 	defer测试 发现defer后于return赋值执行
+* @ Param:  None
+*************************/
+func test_defer_fun(a int) (b int) {
+	defer func() {
+		b = 10
+		a++
+	}()
+	a++
+	b = a
+	return a
+}
+
+/************************
+* @ Author: MingrHu
+* @ Date :  2026/01/09
+* @ About: 	panic调用链测试
+* @ Param:  None
+*************************/
+func A() {
+	defer A1()
+	defer A2()
+	panic("panicA")
+}
+func A1() {
+	fmt.Println("A1")
+}
+func A2() {
+	defer B1()
+	panic("panicA2")
+}
+func B1() {
+	p := recover()
+	fmt.Println(p)
+}
+
 func main() {
-	var grid [][]int = [][]int{{5, 2, 4}, {3, 0, 5}, {0, 7, 2}}
-	numberOfPaths(grid, 3)
+	var arr []int
+	if arr == nil {
+		fmt.Println("0xffff")
+	}
 }
