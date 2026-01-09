@@ -1,8 +1,10 @@
 package main
 
 import (
+	"container/list"
 	"fmt"
 	"math"
+	"sync"
 )
 
 /************************
@@ -133,9 +135,47 @@ func B1() {
 	fmt.Println(p)
 }
 
-func main() {
-	var arr []int
-	if arr == nil {
-		fmt.Println("0xffff")
+/************************
+* @ Author: MingrHu
+* @ Date :  2026/01/09
+* @ About: 	list容器测试
+* @ Param:  None
+*************************/
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func TestList() {
+	l := list.New()
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	l.PushBack(root)
+	for e := l.Front(); e != nil; e = e.Next() {
+		fmt.Println(e.Value.(*TreeNode).Val)
 	}
+}
+
+/************************
+* @ Author: MingrHu
+* @ Date :  2026/01/09
+* @ About: 	go routine 测试
+* @ Param:  None
+*************************/
+func TestGoroutine() {
+	var wg sync.WaitGroup
+	defer wg.Wait()
+	for i := 0; i < 100; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			fmt.Println(i) //这里使用i会形成闭包
+		}()
+	}
+}
+
+func main() {
+	TestGoroutine()
 }
